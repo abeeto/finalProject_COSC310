@@ -6,11 +6,15 @@ from app import *
 from NerStanza import ner
 from POStrack import *
 from Sports import sportquestions
-from celebrityReturn import returnTest
+from celebrityReturn import tweeting
+from mediaWikiTest import wiki
+
 
 name = "Harvie"
 resp = ""
 
+global question
+global orgQuestion
 
 def getResponse(question, pq):
 
@@ -59,9 +63,17 @@ def getResponse(question, pq):
                 resp = sportquestions.getsportqs(question)
             else:
                 resp = "Ready for sports questions"
-        elif "tell me about" in question:
+        elif "@"  in orgQuestion and orgQuestion.split("@",1)[1] != "":   
+            username = orgQuestion.split("@",1)[1]
+            resp = f"Here's the most recent tweet from @{username}:\n{tweeting.returnTweet(username)} " 
+
+        elif "what are people saying about " in question:
             person = ner.processPerson(orgQuestion)[0]
-            resp = returnTest.returnTweet(person) 
+            resp = f"Here's a random tweet about {person}:\n{tweeting.searchTweet(person)} " 
+        elif "tell me more about " in question:
+            searchField = question.replace("tell me more about ", "")
+            resp = f"Here's the summary from WikiPedia:\n {wiki.returnSummary(searchField)}"
+           
         elif question == "ask me a question":
                 Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
                 Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
