@@ -22,7 +22,5 @@ class tweeting:
       return api.get_timelines(user_id=target_id , exclude = ["replies","retweets"]).__getattribute__("data")[0].__getattribute__("text")
     except:
       return "Hmm didn't get anything, the username " + myUsername + " might not exist, remember, usernames are case-sensitive."
-  @staticmethod
-  def props(cls):   
-    return [i for i in cls.__dict__.keys() if i[:1] != '_']
+  
 
