@@ -35,6 +35,7 @@ Retrieving the content is relatively simple:
 
 ![image](./screenshots/featureTwo_wiki.png)
 
+![image](./screenshots/wikipedia.png)
 
 # Twitter API
 ### [**API LINK**](https://github.com/sns-sdks/python-twitter)
