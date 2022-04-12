@@ -1,13 +1,15 @@
+from ast import If
 import random
 from turtle import pos
 from typing import final
+
 from Prequestions import questions
 from app import *
 from NerStanza import ner
 from POStrack import *
 from Sports import sportquestions
 from celebrityReturn import tweeting
-from mediaWikiTest import wiki
+from mediaWiki import wiki
 
 
 name = "Harvie"
@@ -65,15 +67,26 @@ def getResponse(question, pq):
                 resp = "Ready for sports questions"
         elif "@"  in orgQuestion and orgQuestion.split("@",1)[1] != "":   
             username = orgQuestion.split("@",1)[1]
-            resp = f"Here's the most recent tweet from @{username}:\n{tweeting.returnTweet(username)} " 
-
+            resp = f"Here's the most recent tweet from @{username}:\n{tweeting.returnTweet(username)}" 
         elif "what are people saying about " in question:
             person = ner.processPerson(orgQuestion)[0]
             resp = f"Here's a random tweet about {person}:\n{tweeting.searchTweet(person)} " 
         elif "tell me more about " in question:
-            searchField = question.replace("tell me more about ", "")
-            resp = f"Here's the summary from WikiPedia:\n {wiki.returnSummary(searchField)}"
-           
+            searchField = question.replace("!wiki tell me more about ", "")
+            topicsList = wiki.returnTopics(searchField)[1]
+            topics = [f'[{i}]: {topicsList[i]}' for i in range(0, len(topicsList))]
+            nl = "\n"
+            resp = f"Here are the topics from Wikipedia regarding {searchField}:{nl} {nl.join(topics)} {nl} For me to display the content, you just need to type 'wiki* pagename contentNo'"
+        elif "wiki*" in question:
+            keys = question.split()
+            search = keys[1:-1]
+            search = " ".join(search)
+            allTopics = wiki.returnTopics(search)[1]
+            topicToSearch = allTopics[int(keys[-1])]
+            # resp = f"{search} {topicToSearch}"
+            resp = f"{wiki.returnContents(search, topicToSearch)}" 
+        elif "I watched " in orgQuestion:
+            resp = ner.processWOA(orgQuestion)  
         elif question == "ask me a question":
                 Goodresponses = ["Great", "Awesome!", "Amazing!", "Brilliant!", "Fantastic!"]
                 Badresponses = ["Uh oh!", "That's not good!", "That is sad!", "Sorry about that!", "Hmmm!"]
@@ -93,8 +106,7 @@ def getResponse(question, pq):
             else:
                 randIndex = random.randint(0, len(resp) - 1)
                 resp = resp[randIndex]
-        elif "I watched " in orgQuestion:
-            resp = ner.processWOA(orgQuestion)   #Check if there is any work of art or anything you can identify!
+         #Check if there is any work of art or anything you can identify!
 
         # if resp == "":
         #     resp = processpos(question)
@@ -118,3 +130,4 @@ def getResponse(question, pq):
 
     finally:
         return resp
+

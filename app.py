@@ -1,7 +1,6 @@
 from tkinter import *;
 from Chatbot import *;
 from NerStanza import *;
-#from Chatbot import  resp
 
 
 bg_light = "#A1E8F7"
@@ -13,6 +12,7 @@ msg = "Hello"
 font = "Helvetica 14"
 font_bold = "Helvetica 13 bold"
 previousq = ""
+
 
 class ChatApplication:
 
@@ -28,7 +28,7 @@ class ChatApplication:
     def _setup_main_window(self):
         self.window.title("Harvie The Movie Bot")
         self.window.resizable(width=False, height=False)
-        self.window.configure(width=470, height= 550, bg= BG_COLOR)
+        self.window.configure(width=600, height= 550, bg= BG_COLOR)
 
 
         #head label
@@ -37,7 +37,7 @@ class ChatApplication:
 
 
         # tiny divider
-        line = Label(self.window, width = 450, bg = bg_light)
+        line = Label(self.window, width = 550, bg = bg_light)
         line.place(relwidth =1, rely= 0.07, relheight= 0.012)
 
         # text widget
@@ -92,6 +92,7 @@ class ChatApplication:
 
 
         self.text_widget.see(END)
+
 
 
 if __name__ == "__main__":
