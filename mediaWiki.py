@@ -25,4 +25,3 @@ class wiki:
 
 
 
-print(wiki.returnTopics("Kanye West"))
