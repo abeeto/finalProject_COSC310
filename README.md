@@ -2,6 +2,11 @@
 
 # Our very own chatbot - Harvie The MovieBot
 
+
+![videoOverview]https://user-images.githubusercontent.com/59943893/175868579-6713e4c6-55ce-47f3-ac46-3cdb54136c7a.mp4
+
+
+
 Harvie, the conversational chatbot, specializes in talking about film - movies, tv shows and celebrities. The main goal is for it to be able to handle a conversation of at least 30 turns and be able to deal with any possible input.
 
 For now, most of the conversation is based on a series of questions being asked by the user and the bot responding back with answers from an array. We also allowed the bot to be able to ask questions to the reader.
